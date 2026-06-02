@@ -423,9 +423,8 @@ def delete_conversation(conversation_id: str) -> dict:
 import os
 import sys
 
-_PORT = int(os.environ.get("PORT", 8000))
-mcp = FastMCP("ChatMemory", host="0.0.0.0", port=_PORT)
+mcp = FastMCP("ChatMemory")
 
 if __name__ == "__main__":
-    print(f"Starting ChatMemory on port {_PORT}...", file=sys.stderr)
+    print("Starting ChatMemory...", file=sys.stderr)
     mcp.run(transport="streamable-http")
