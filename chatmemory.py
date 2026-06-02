@@ -421,4 +421,13 @@ def delete_conversation(conversation_id: str) -> dict:
 
 # ── Entry point ───────────────────────────────────────────────────────────────
 if __name__ == "__main__":
-    mcp.run(transport="sse", host="0.0.0.0", port=8000)
+    import sys
+    import os
+    port = int(os.environ.get("PORT", 8000))
+    print(f"Starting ChatMemory on port {port}...", file=sys.stderr)
+    print(f"Storing conversations in: {STORE.resolve()}", file=sys.stderr)
+    
+    mcp.run(
+        transport="sse",
+        sse_settings={"host": "0.0.0.0", "port": port}
+    )
