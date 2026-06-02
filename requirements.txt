@@ -1,0 +1,4 @@
+fastmcp
+mcp[server]
+uvicorn
+starlette
