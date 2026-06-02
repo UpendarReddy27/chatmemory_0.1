@@ -9,8 +9,8 @@ import uuid
 import os
 from datetime import datetime, timezone
 from pathlib import Path
-from mcp.server.fastmcp import FastMCP
-
+# from mcp.server.fastmcp import FastMCP
+from fastmcp import FastMCP
 # ── Storage root (always next to this script, not Claude's launch folder) ─────
 _BASE = Path(__file__).resolve().parent
 STORE = _BASE / "conversations"
@@ -420,10 +420,12 @@ def delete_conversation(conversation_id: str) -> dict:
 
 
 # ── Entry point ───────────────────────────────────────────────────────────────
+import os
+import sys
+
+_PORT = int(os.environ.get("PORT", 8000))
+mcp = FastMCP("ChatMemory", host="0.0.0.0", port=_PORT)
+
 if __name__ == "__main__":
-    import os
-    import sys
-    port = int(os.environ.get("PORT", 8000))
-    print(f"Starting ChatMemory on port {port}...", file=sys.stderr)
-    print(f"Storing conversations in: {STORE.resolve()}", file=sys.stderr)
-    mcp.run(transport="streamable-http", host="0.0.0.0", port=port)
+    print(f"Starting ChatMemory on port {_PORT}...", file=sys.stderr)
+    mcp.run(transport="streamable-http")
