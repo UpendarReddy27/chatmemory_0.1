@@ -422,8 +422,8 @@ def delete_conversation(conversation_id: str) -> dict:
 # ── Entry point ───────────────────────────────────────────────────────────────
 if __name__ == "__main__":
     import os
-    import uvicorn
+    import sys
     port = int(os.environ.get("PORT", 8000))
-    
-    app = mcp.get_asgi_app()
-    uvicorn.run(app, host="0.0.0.0", port=port)
+    print(f"Starting ChatMemory on port {port}...", file=sys.stderr)
+    print(f"Storing conversations in: {STORE.resolve()}", file=sys.stderr)
+    mcp.run(transport="streamable-http", host="0.0.0.0", port=port)
