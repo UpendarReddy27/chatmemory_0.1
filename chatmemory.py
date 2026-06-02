@@ -17,7 +17,7 @@ STORE = _BASE / "conversations"
 STORE.mkdir(parents=True, exist_ok=True)
 
 # ── MCP server ────────────────────────────────────────────────────────────────
-mcp = FastMCP("ConversationManager")
+mcp = FastMCP("ChatMemory")
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -422,8 +422,6 @@ def delete_conversation(conversation_id: str) -> dict:
 # ── Entry point ───────────────────────────────────────────────────────────────
 import os
 import sys
-
-mcp = FastMCP("ChatMemory")
 
 if __name__ == "__main__":
     print("Starting ChatMemory...", file=sys.stderr)
